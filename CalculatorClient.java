@@ -13,37 +13,36 @@ public class CalculatorClient {
         Registry registry = LocateRegistry.getRegistry(host, port);
         Calculator calc = (Calculator) registry.lookup(name);
 
-        // --- Functional test: min/max/lcm/gcd over entire stack ---
-        // Build stack: [2, 3, 4, 8]
-        calc.pushValue(2);
-        calc.pushValue(3);
-        calc.pushValue(4);
+        // Functional test: min/max/lcm/gcd over entire stack
         calc.pushValue(8);
-        calc.pushOperation("min");               // min(2,3,4,8) = 2
+        calc.pushValue(9);
+        calc.pushValue(15);
+        calc.pushValue(25);
+        calc.pushOperation("min");               
         System.out.println("min -> " + calc.pop());
 
         // Rebuild stack
-        calc.pushValue(2); calc.pushValue(3); calc.pushValue(4); calc.pushValue(8);
-        calc.pushOperation("max");               // max(...) = 8
+        calc.pushValue(8); calc.pushValue(9); calc.pushValue(15); calc.pushValue(25);
+        calc.pushOperation("max");               
         System.out.println("max -> " + calc.pop());
 
-        calc.pushValue(4); calc.pushValue(6); calc.pushValue(8);
-        calc.pushOperation("gcd");               // gcd(4,6,8) = 2
+        calc.pushValue(9); calc.pushValue(15); calc.pushValue(25);
+        calc.pushOperation("gcd");               
         System.out.println("gcd -> " + calc.pop());
 
-        calc.pushValue(4); calc.pushValue(6); calc.pushValue(8);
-        calc.pushOperation("lcm");               // lcm(4,6,8) = 24
+        calc.pushValue(9); calc.pushValue(15); calc.pushValue(25);
+        calc.pushOperation("lcm");               
         System.out.println("lcm -> " + calc.pop());
 
-        // --- delayPop smoke test ---
-        calc.pushValue(42);
+        // delayPop smoke test
+        calc.pushValue(225);
         long t0 = System.currentTimeMillis();
         int v = calc.delayPop(300);
         long dt = System.currentTimeMillis() - t0;
         System.out.println("delayPop -> " + v + " (elapsed ~" + dt + "ms)");
 
-        // --- Simple multi-client stress: 8 concurrent pushers + poppers ---
-        int threads = 8;
+        // Simple multi-client stress: 25 concurrent pushers + poppers
+        int threads = 25;
         ExecutorService pool = Executors.newFixedThreadPool(threads);
         List<Callable<Void>> tasks = new ArrayList<>();
 

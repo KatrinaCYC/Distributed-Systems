@@ -15,9 +15,5 @@ public interface Calculator extends Remote {
 
     boolean isEmpty() throws RemoteException;
 
-    /**
-     * Sleep for 'millis' milliseconds, then perform pop() and return the result.
-     * Sleep is done WITHOUT holding the lock to avoid blocking other clients.
-     */
     int delayPop(int millis) throws RemoteException;
 }

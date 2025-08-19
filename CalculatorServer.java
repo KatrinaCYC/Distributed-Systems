@@ -6,7 +6,6 @@ public class CalculatorServer {
         final int port = 1099;
         final String name = "CalculatorService";
         try {
-            // Start an in-process registry if not already running
             Registry registry;
             try {
                 registry = LocateRegistry.createRegistry(port);
