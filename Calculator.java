@@ -2,11 +2,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface Calculator extends Remote {
-    /**
-    * Open a new session and return its unique id.
-    * Each session gets its own independent stack.
-    */
-String openSession() throws RemoteException;
     void pushValue(int val) throws RemoteException;
 
     /**
